@@ -6,6 +6,7 @@ import (
 	"github.com/Labbs/gokit/cfg"
 )
 
+// InitEngine - init xorm engine database
 func InitEngine(engine string, dataSource []string, tables []interface{}) *xorm.EngineGroup {
 	cfg.Logger.Info("create database engine")
 	e, err := xorm.NewEngineGroup(engine, dataSource)
