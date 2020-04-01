@@ -1,8 +1,12 @@
 package grpc
 
 import (
+	"net"
+	"time"
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+	"google.golang.org/grpc"
 
 	"github.com/Labbs/gokit/cfg"
 
@@ -39,5 +43,5 @@ func InitGrpc(port string) (net.Listener, *grpc.Server) {
 		)),
 	)
 
-	return (listener, srv)
+	return listener, srv
 }
