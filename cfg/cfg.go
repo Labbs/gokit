@@ -9,9 +9,11 @@ import (
 )
 
 var (
+	// Config - var contains configuration from consul
 	Config map[string]interface{}
 )
 
+// InitCfg - get configuration from consul
 func InitCfg(address string, debug bool, service string) {
 	for {
 		c, _ := api.NewClient(&api.Config{Address: address})
