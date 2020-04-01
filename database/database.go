@@ -14,7 +14,7 @@ func InitEngine(engine string, dataSource []string, table ...interface{}) *xorm.
 	}
 
 	cfg.Logger.Info("create table")
-	err = e.Sync2(table)
+	err = e.Sync2(new(table))
 	if err != nil {
 		cfg.Logger.Fatal(err.Error())
 	}
