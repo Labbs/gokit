@@ -8,14 +8,16 @@ import (
 
 func InitEngine(engine string, dataSource []string, table ...interface{}) *xorm.EngineGroup {
 	cfg.Logger.Info("create database engine")
-	engine, err := xorm.NewEngineGroup(engine, dataSource)
+	e, err := xorm.NewEngineGroup(engine, dataSource)
 	if err != nil {
 		cfg.Logger.Fatal(err.Error())
 	}
 
 	cfg.Logger.Info("create table")
-	err = engine.Sync2(table)
+	err = e.Sync2(table)
 	if err != nil {
 		cfg.Logger.Fatal(err.Error())
 	}
+
+	return e
 }
