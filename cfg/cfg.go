@@ -22,13 +22,13 @@ func InitCfgLoop(address string, debug bool, service string) {
 		kv := c.KV()
 		consulConfig, _, err := kv.Get("config/"+service, nil)
 		if err != nil {
-			Logger.Fatalf(err.Error())
+			Logger.Fatal(err.Error())
 		}
 
 		if consulConfig != nil {
 			err = yaml.Unmarshal([]byte(consulConfig.Value), &Config)
 			if err != nil {
-				Logger.Fatalf(err.Error())
+				Logger.Fatal(err.Error())
 			}
 			if debug {
 				Logger.Info("config reloaded")
@@ -48,12 +48,12 @@ func InitCfg(address string, debug bool, service string) {
 	kv := c.KV()
 	consulConfig, _, err := kv.Get("config/"+service, nil)
 	if err != nil {
-		Logger.Fatalf(err.Error())
+		Logger.Fatal(err.Error())
 	}
 	if consulConfig != nil {
 		err = yaml.Unmarshal([]byte(consulConfig.Value), &Config)
 		if err != nil {
-			Logger.Fatalf(err.Error())
+			Logger.Fatal(err.Error())
 		}
 		if debug {
 			Logger.Info("config reloaded")
