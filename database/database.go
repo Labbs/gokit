@@ -8,7 +8,7 @@ import (
 
 func InitEngine(engine string, dataSource []string, table ...interface{}) *xorm.EngineGroup {
 	cfg.Logger.Info("create database engine")
-	engine, err := xorm.NewEngineGroup(cfg.Config["database_engine"].(string), dataSourceName)
+	engine, err := xorm.NewEngineGroup(engine, dataSource)
 	if err != nil {
 		cfg.Logger.Fatal(err.Error())
 	}
