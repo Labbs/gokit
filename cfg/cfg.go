@@ -13,8 +13,8 @@ var (
 	Config map[string]interface{}
 )
 
-// InitCfg - get configuration from consul
-func InitCfg(address string, debug bool, service string) {
+// InitCfgLoop - get configuration from consul
+func InitCfgLoop(address string, debug bool, service string) {
 	for {
 		c, _ := api.NewClient(&api.Config{Address: address})
 		kv := c.KV()
@@ -36,5 +36,26 @@ func InitCfg(address string, debug bool, service string) {
 		}
 
 		time.Sleep(30 * time.Second)
+	}
+}
+
+// InitCfg - get configuration from consul
+func InitCfg(address string, debug bool, service string) {
+	c, _ := api.NewClient(&api.Config{Address: address})
+	kv := c.KV()
+	consulConfig, _, err := kv.Get("config/"+service, nil)
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+	if consulConfig != nil {
+		err = yaml.Unmarshal([]byte(consulConfig.Value), &Config)
+		if err != nil {
+			log.Fatalf(err.Error())
+		}
+		if debug {
+			log.Printf("config reloaded")
+		}
+	} else {
+		log.Printf("config empty")
 	}
 }
