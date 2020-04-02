@@ -28,7 +28,7 @@ func InitGrpc(port string) (net.Listener, *grpc.Server) {
 			return zap.Int64("grpc.time_ns", duration.Nanoseconds())
 		}),
 	}
-	grpc_zap.ReplaceGrpcLoggerV2WithVerbosity(cfg.Logger)
+	grpc_zap.ReplaceGrpcLoggerV2WithVerbosity(cfg.Logger, 3)
 
 	srv := grpc.NewServer(
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
