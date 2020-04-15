@@ -59,14 +59,13 @@ func InitSSMPSCfgLoop(region string, key string, refresh int64, debug bool) {
 	}
 	cfg.Region = region
 
-	svc := ssm.New(cfg)
-
-	req := svc.GetParameterRequest(&ssm.GetParameterInput{
-		Name:           aws.String(key),
-		WithDecryption: aws.Bool(true),
-	})
-
 	for {
+		svc := ssm.New(cfg)
+
+		req := svc.GetParameterRequest(&ssm.GetParameterInput{
+			Name:           aws.String(key),
+			WithDecryption: aws.Bool(true),
+		})
 		resp, err := req.Send(context.Background())
 		if err != nil {
 			Logger.Fatal("unable to send request, " + err.Error())
